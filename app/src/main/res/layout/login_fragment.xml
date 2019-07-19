@@ -61,7 +61,6 @@
             android:text="Register"
             android:clickable="true"
             android:focusable="true"
-            android:textStyle=""
             android:textColor="#FFFFFFFF"
             android:layout_height="wrap_content" />
 
