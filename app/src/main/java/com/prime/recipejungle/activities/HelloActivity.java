@@ -28,8 +28,6 @@ public class HelloActivity extends RedefActivity {
         fragmentController.startTransaction()
                 .useFragment(HelloFragment.class)
                 .commit();
-
-        App.startActivity(androidActivity, LoginActivity.class, null);
     }
 
     @Override
