@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/indicator"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AVLoadingIndicatorView.Large"
+        app:indicatorName="BallPulseIndicator"
+        app:indicatorColor="@color/accent" />
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:id="@+id/error_layout"
+        android:visibility="gone"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.prime.redef.flatui.FlatTextView
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:id="@+id/error_message"
+            android:gravity="center_horizontal"
+            android:text="asdads"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <com.prime.redef.flatui.FlatButtonPrimary
+            android:id="@+id/retry_button"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Tekrar Dene"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>
