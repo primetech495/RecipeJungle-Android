@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.prime.redef.flatui.FlatTextView
         android:layout_margin="8dp"
         android:text="PLease enter username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <EditText
+    <com.prime.redef.flatui.FlatEditText
         android:id="@+id/editText1"
         android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
+    <com.prime.redef.flatui.FlatButtonPrimary
         android:id="@+id/button1"
         android:layout_margin="8dp"
         android:text="Sign in"
