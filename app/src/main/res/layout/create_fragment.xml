@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.prime.redef.flatui.FlatTextView
+        android:layout_margin="8dp"
+        android:text="Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatEditText
+        android:id="@+id/recipeTitle"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <com.prime.redef.flatui.FlatTextView
+        android:layout_margin="8dp"
+        android:text="Description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatEditText
+        android:id="@+id/recipeDescription"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <com.prime.redef.flatui.FlatTextView
+        android:layout_margin="8dp"
+        android:text="Portion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatEditText
+        android:id="@+id/recipePortion"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <com.prime.redef.flatui.FlatTextView
+        android:layout_margin="8dp"
+        android:text="Prepare Time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatEditText
+        android:id="@+id/recipePrepareTime"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatTextView
+        android:layout_margin="8dp"
+        android:text="Steps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatEditText
+        android:id="@+id/recipeSteps"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatTextView
+        android:layout_margin="8dp"
+        android:text="Ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatEditText
+        android:id="@+id/recipeIngredients"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatTextView
+        android:layout_margin="8dp"
+        android:text="Tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatEditText
+        android:id="@+id/recipeTags"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+    <com.prime.redef.flatui.FlatButtonPrimary
+        android:id="@+id/button1"
+        android:layout_margin="8dp"
+        android:text="Create Recipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
+</ScrollView>
