@@ -38,8 +38,24 @@
         <com.prime.redef.flatui.FlatEditText
             android:id="@+id/editText2"
             android:layout_margin="8dp"
-            android:inputType="textPassword"
             android:hint="Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:lines="1"
+            android:singleLine="true"/>
+
+        <com.prime.redef.flatui.FlatTextView
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:text="Please Enter Email"
+            android:textColor="#FFFFFFFF"
+            android:layout_height="wrap_content" />
+
+        <com.prime.redef.flatui.FlatEditText
+            android:id="@+id/editText3"
+            android:layout_margin="8dp"
+            android:hint="Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
@@ -49,19 +65,15 @@
         <com.prime.redef.flatui.FlatButtonPrimary
             android:id="@+id/button1"
             android:layout_margin="4dp"
-            android:text="Sign in"
+            android:text="Register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.prime.redef.flatui.FlatTextView
-            android:id="@+id/view1"
             android:layout_width="match_parent"
             android:layout_margin="8dp"
             android:textAlignment="center"
-            android:text="Register"
-            android:clickable="true"
-            android:focusable="true"
-            android:textStyle=""
+            android:text="Login"
             android:textColor="#FFFFFFFF"
             android:layout_height="wrap_content" />
 

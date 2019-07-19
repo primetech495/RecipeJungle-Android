@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.prime.recipejungle.activities.LoginActivity;
+import com.prime.recipejungle.activities.RegisterActivity;
 import com.prime.redef.app.App;
 
 public class Launcher extends AppCompatActivity {
