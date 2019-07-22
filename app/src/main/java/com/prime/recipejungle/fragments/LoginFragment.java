@@ -19,6 +19,7 @@ import com.prime.recipejungle.activities.LoginActivity;
 import com.prime.recipejungle.activities.RegisterActivity;
 import com.prime.recipejungle.utils.Global;
 import com.prime.redef.app.App;
+import com.prime.recipejungle.utils.Global;
 import com.prime.redef.app.RedefFragment;
 import com.prime.redef.json.JObject;
 import com.prime.redef.json.Json;
