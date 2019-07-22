@@ -84,7 +84,7 @@ public class CreateFragment extends RedefFragment {
             body.put("Ingredients", ingredients);
             body.put("Tags", tags);
             body.put("Steps", steps);
-            request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication",null));
+            request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication:",null));
             ((PostRequest) request).setJsonBody(Json.toJson(body));
         } catch (Exception e) {
             e.printStackTrace();
