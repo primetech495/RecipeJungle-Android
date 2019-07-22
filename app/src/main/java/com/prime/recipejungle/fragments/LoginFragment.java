@@ -20,25 +20,18 @@ public class LoginFragment extends RedefFragment {
 
     @Override
     public View onCreate(@NonNull Context context, @NonNull LayoutInflater inflater) {
-        View content = inflater.inflate(R.layout.login_fragment, null);
+        final View content = inflater.inflate(R.layout.login_fragment, null);
         final EditText usertext = content.findViewById(R.id.editText1);
         final EditText passtext = content.findViewById(R.id.editText2);
-        //final TextView reg = content.findViewById(R.id.view1);
-
-        //passtext.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        //((TextView) content.findViewById(R.id.view1)).setMovementMethod(LinkMovementMethod.getInstance());
-        // ((TextView) content.findViewById(R.id.view1)).setText(Html.fromHtml(content.getResources().getString(R.string.string_with_links)));
-
-        passtext.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-
-
         this.button = content.findViewById(R.id.button1);
 
-        String username = usertext.getText().toString();
+        passtext.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String username = usertext.getText().toString();
+                String password = passtext.getText().toString();
             }
         });
 
