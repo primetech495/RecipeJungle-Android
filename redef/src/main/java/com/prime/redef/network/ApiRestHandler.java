@@ -2,6 +2,7 @@ package com.prime.redef.network;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
+
 public abstract class ApiRestHandler {
 
     private AsyncHttpResponseHandler handler;
@@ -16,7 +17,11 @@ public abstract class ApiRestHandler {
                     for (int i = 0; i < h.length; i++)
                         h[i] = new Header(headers[i].getName(), headers[i].getValue());
                 }
-                ApiRestHandler.this.onSuccess(statusCode, h, responseBody);
+                try {
+                    ApiRestHandler.this.onSuccess(statusCode, h, responseBody);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -32,7 +37,7 @@ public abstract class ApiRestHandler {
         };
     }
 
-    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) throws Exception {
 
     }
 
