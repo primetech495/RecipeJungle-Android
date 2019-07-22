@@ -16,7 +16,7 @@ public class Launcher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         App.startActivity(this, LoginActivity.class, null);
-        //App.startActivity(this, CreateActivity.class, null);
+        App.startActivity(this, CreateActivity.class, null);
         finish();
     }
 }

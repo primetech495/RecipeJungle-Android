@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.prime.recipejungle.R;
-import com.prime.recipejungle.utils.Constants;
+import com.prime.recipejungle.utils.Global;
 import com.prime.redef.app.RedefFragment;
 import com.prime.redef.json.JObject;
 import com.prime.redef.json.Json;
@@ -48,7 +48,7 @@ public class LoginFragment extends RedefFragment {
 
         passtext.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-        apiClient = new ApiClient(Constants.HOST);
+        apiClient = new ApiClient(Global.HOST);
 
         this.button = content.findViewById(R.id.button1);
 
