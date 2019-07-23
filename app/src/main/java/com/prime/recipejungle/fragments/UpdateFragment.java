@@ -68,10 +68,11 @@ public class UpdateFragment extends RedefFragment {
         }
         etSteps.setText(builder_steps.toString());
 
+        Log.e("tny", recipe.Ingredients);
         StringBuilder builder_ingredients= new StringBuilder();
         for (String ingredient: recipe.Ingredients.split(",")) {
-            builder_steps.append(ingredient);
-            builder_steps.append("\n");
+            builder_ingredients.append(ingredient);
+            builder_ingredients.append("\n");
         }
         etIngredients.setText(builder_ingredients.toString());
 
