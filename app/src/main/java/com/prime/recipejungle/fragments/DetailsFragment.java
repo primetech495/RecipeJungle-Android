@@ -14,6 +14,7 @@ import com.prime.recipejungle.entities.RecipeTag;
 import com.prime.recipejungle.utils.Global;
 import com.prime.redef.app.InjectParameter;
 import com.prime.redef.app.RedefFragment;
+import com.prime.redef.json.JArray;
 import com.prime.redef.json.JObject;
 import com.prime.redef.json.Json;
 import com.prime.redef.network.ApiClient;
@@ -61,19 +62,25 @@ public class DetailsFragment extends RedefFragment {
                 etDescription.setText("DESCRIPTION: "+recipe.Text);
                 etPortion.setText("PORTION: "+String.valueOf(recipe.Portion));
                 etPrepareTime.setText("PREPARE TIME: "+String.valueOf(recipe.PrepareTime));
+                JArray steps = JArray.parse(recipe.Steps);
                 StringBuilder builder_steps = new StringBuilder();
-                for (String step: recipe.Steps.split(",")) {
-                    builder_steps.append(step);
+                for (int i = 0; i < steps.size(); i++) {
+                    builder_steps.append((i+1)+". ");
+                    builder_steps.append(steps.getString(i));
                     builder_steps.append("\n");
                 }
-                etSteps.setText(builder_steps.toString());
+
+                etSteps.setText("STEPS: "+builder_steps.toString());
+
+                JArray ingredients = JArray.parse(recipe.Ingredients);
 
                 StringBuilder builder_ingredients= new StringBuilder();
-                for (String ingredient: recipe.Ingredients.split(",")) {
-                    builder_steps.append(ingredient);
-                    builder_steps.append("\n");
+                for (int i = 0; i < ingredients.size(); i++) {
+
+                    builder_ingredients.append(ingredients.getString(i));
+                    builder_ingredients.append("\n");
                 }
-                etIngredients.setText(builder_ingredients.toString());
+                etIngredients.setText("INGREDIENTS: "+builder_ingredients.toString());
 
                 StringBuilder builder_tag = new StringBuilder();
 
@@ -81,7 +88,7 @@ public class DetailsFragment extends RedefFragment {
                     builder_tag.append(tag.getTag().getText());
                     builder_tag.append("\n");
                 }
-                etTags.setText(builder_tag.toString());
+                etTags.setText("TAGS: "+builder_tag.toString());
             }
 
             @Override
