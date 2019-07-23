@@ -19,7 +19,7 @@ public class DetailsActivity extends RedefActivity{
         config.setTabsEnabled(true);
         config.setActionbarEnabled(true);
         config.setHomeButton(true);
-        config.setActionbarTitle("DETAILS");
+        config.setActionbarTitle("Details");
     }
 
     @Override

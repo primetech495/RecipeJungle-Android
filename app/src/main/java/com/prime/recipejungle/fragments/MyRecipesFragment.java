@@ -197,7 +197,7 @@ public class MyRecipesFragment extends RedefFragment {
             holder.getEditButton().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    App.startActivity(context, UpdateActivity.class, recipe.Id);
+                    App.startActivity(context, UpdateActivity.class, recipe);
                 }
             });
 
