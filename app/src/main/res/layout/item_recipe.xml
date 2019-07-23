@@ -40,20 +40,6 @@
             android:layout_marginLeft="2dp"
             android:layout_width="60dp"
             android:layout_height="40dp" />
-        <com.prime.redef.flatui.FlatButtonSecondary
-            android:id="@+id/button2"
-            android:text="Edit"
-            android:layout_marginRight="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_width="60dp"
-            android:layout_height="40dp" />
-        <com.prime.redef.flatui.FlatButtonDanger
-            android:id="@+id/button3"
-            android:text="Delete"
-            android:layout_marginRight="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_width="60dp"
-            android:layout_height="40dp" />
     </LinearLayout>
 
 </LinearLayout>

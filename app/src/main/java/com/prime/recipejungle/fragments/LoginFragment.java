@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 
 import com.prime.recipejungle.R;
 import com.prime.recipejungle.activities.CreateActivity;
+import com.prime.recipejungle.activities.HomeActivity;
 import com.prime.recipejungle.activities.LoginActivity;
 import com.prime.recipejungle.activities.MyRecipesActivity;
 import com.prime.recipejungle.activities.RegisterActivity;
@@ -97,7 +98,7 @@ public class LoginFragment extends RedefFragment {
                 String responseString = ObjectUtils.utf8String(responseBody);
                 String message = Json.fromJson(responseString, String.class);
                 Global.PROPERTIES.putString("Authentication:", message);
-                App.startActivity(getAndroidActivity(), MyRecipesActivity.class,null);
+                App.startActivity(getAndroidActivity(), HomeActivity.class,null);
                 getAndroidActivity().finish();
             }
 
