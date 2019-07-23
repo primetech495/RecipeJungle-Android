@@ -127,8 +127,6 @@ public class UpdateFragment extends RedefFragment {
             body.put("Steps", new_steps.split("\n"));
             request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication:",null));
             ((PostRequest) request).setJsonBody(Json.toJson(body));
-            Log.e("tny", new_title);
-
 
         } catch (Exception e) {
             e.printStackTrace();
