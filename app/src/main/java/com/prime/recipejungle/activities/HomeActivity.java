@@ -42,7 +42,7 @@ public class HomeActivity extends RedefActivity {
             public void run() {
                 while (true) {
                     try {
-                        Thread.sleep(3000);
+                        Thread.sleep(1500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -54,17 +54,16 @@ public class HomeActivity extends RedefActivity {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) throws Exception {
                             String response = ObjectUtils.utf8String(responseBody);
-                            Log.d("DEBUG NOTIFCATION", response);
+                            Log.d("DEBUG NOTIFICATION", response);
                             if (response.equals("true")) return;
                             Context context = WeakUtils.getAppContext();
                             if (context == null) return;
                             NotificationHelper.post(context, "Recipe Jungle", response + " liked your recipe");
-
                         }
 
                         @Override
                         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                            Log.e("DEBUG NOTIFICATION", "failure");
                         }
                     });
                 }
