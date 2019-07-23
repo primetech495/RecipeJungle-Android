@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.prime.recipejungle.R;
 import com.prime.recipejungle.activities.CreateActivity;
 import com.prime.recipejungle.activities.DetailsActivity;
+import com.prime.recipejungle.activities.HomeActivity;
 import com.prime.recipejungle.activities.MyRecipesActivity;
 import com.prime.recipejungle.activities.UpdateActivity;
 import com.prime.recipejungle.entities.Recipe;
@@ -53,7 +54,10 @@ public class HomeFragment extends RedefFragment {
                         .setTitle("Profile"),
                 new OptionsMenuItemConfig(2)
                         .setShowAsAction(false)
-                        .setTitle("My Recipes")
+                        .setTitle("My Recipes"),
+                new OptionsMenuItemConfig(3)
+                        .setShowAsAction(false)
+                        .setTitle("Refresh")
         ));
     }
 
@@ -171,11 +175,14 @@ public class HomeFragment extends RedefFragment {
     @Override
     public boolean onMenuItemClicked(int id) {
         if (id == 1) {
-            App.startActivity(getAndroidActivity(), MyRecipesActivity.class, null);
             return true;
         }
         if (id == 2) {
             App.startActivity(getAndroidActivity(), MyRecipesActivity.class, null);
+            return true;
+        }
+        if (id == 3) {
+            App.startActivity(getAndroidActivity(), HomeActivity.class, null);
             return true;
         }
         return false;
