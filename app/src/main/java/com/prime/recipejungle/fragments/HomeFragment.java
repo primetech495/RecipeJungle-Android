@@ -57,7 +57,10 @@ public class HomeFragment extends RedefFragment {
                         .setTitle("My Recipes"),
                 new OptionsMenuItemConfig(3)
                         .setShowAsAction(false)
-                        .setTitle("Refresh")
+                        .setTitle("Refresh"),
+                new OptionsMenuItemConfig(4)
+                        .setShowAsAction(false)
+                        .setTitle("Create New")
         ));
     }
 
@@ -183,6 +186,10 @@ public class HomeFragment extends RedefFragment {
         }
         if (id == 3) {
             App.startActivity(getAndroidActivity(), HomeActivity.class, null);
+            return true;
+        }
+        if (id == 4) {
+            App.startActivity(getAndroidActivity(), CreateActivity.class, null);
             return true;
         }
         return false;
