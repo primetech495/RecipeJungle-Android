@@ -40,7 +40,8 @@ public class DetailsFragment extends RedefFragment {
     @Override
     public View onCreate(@NonNull Context context, @NonNull LayoutInflater inflater) {
         View content = inflater.inflate(R.layout.details_fragment, null);
-        request = new GetRequest("api/recipe/recipe?id="+recipeId); //todo recipe id
+        request = new GetRequest("/api/recipe/recipe?id="+recipeId);
+        request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication:",null));
         this.client = new ApiClient(Global.HOST);
 
         etTitle = content.findViewById(R.id.recipeTitle);
@@ -57,11 +58,11 @@ public class DetailsFragment extends RedefFragment {
                 String responseString = ObjectUtils.utf8String(responseBody);
                 Recipe recipe = Json.fromJson(responseString,Recipe.class);
                 etTitle.setText(recipe.Title);
-                etDescription.setText(recipe.Text);
-                etPortion.setText(recipe.Portion);
-                etPrepareTime.setText(recipe.PrepareTime);
-                etIngredients.setText(recipe.Ingredients);
-                etSteps.setText(recipe.Steps);
+                //etDescription.setText(recipe.Text);
+                //etPortion.setText(recipe.Portion);
+                //etPrepareTime.setText(recipe.PrepareTime);
+                //etIngredients.setText(recipe.Ingredients);
+                //etSteps.setText(recipe.Steps);
 
                 StringBuilder builder = new StringBuilder();
                 for (RecipeTag tag: recipe.RecipeTags) {
