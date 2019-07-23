@@ -139,6 +139,9 @@ public class HomeFragment extends RedefFragment {
                     App.startActivity(context, DetailsActivity.class, recipe);
                 }
             });
+
+            holder.getEditButton().setVisibility(View.GONE);
+            holder.getDeleteButton().setVisibility(View.GONE);
         }
 
         @Override
