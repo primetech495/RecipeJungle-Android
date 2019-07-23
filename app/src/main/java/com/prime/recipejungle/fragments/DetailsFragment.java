@@ -3,7 +3,6 @@ package com.prime.recipejungle.fragments;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,18 +14,13 @@ import com.prime.recipejungle.utils.Global;
 import com.prime.redef.app.InjectParameter;
 import com.prime.redef.app.RedefFragment;
 import com.prime.redef.json.JArray;
-import com.prime.redef.json.JObject;
-import com.prime.redef.json.Json;
 import com.prime.redef.network.ApiClient;
-import com.prime.redef.network.ApiRestHandler;
-import com.prime.redef.network.GetRequest;
-import com.prime.redef.network.Header;
 import com.prime.redef.utils.ObjectUtils;
 
+import java.util.ArrayList;
+
 public class DetailsFragment extends RedefFragment {
-    private Recipe recipe;
-    GetRequest request;
-    ApiClient client;
+    private ApiClient client;
     private TextView etTitle;
     private TextView etDescription;
     private TextView etPortion;
@@ -36,68 +30,52 @@ public class DetailsFragment extends RedefFragment {
     private TextView etSteps;
 
     @InjectParameter
-    private int recipeId;
+    private Recipe recipe;
 
     @Override
     public View onCreate(@NonNull Context context, @NonNull LayoutInflater inflater) {
         View content = inflater.inflate(R.layout.details_fragment, null);
-        request = new GetRequest("/api/recipe/recipe?id="+recipeId);
-        request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication:",null));
         this.client = new ApiClient(Global.HOST);
 
         etTitle = content.findViewById(R.id.recipeTitle);
         etDescription = content.findViewById(R.id.recipeDescription);
         etPortion = content.findViewById(R.id.recipePortion);
         etPrepareTime = content.findViewById(R.id.recipePrepareTime);
-        etIngredients= content.findViewById(R.id.recipeIngredients);
+        etIngredients = content.findViewById(R.id.recipeIngredients);
         etTags = content.findViewById(R.id.recipeTags);
         etSteps = content.findViewById(R.id.recipeSteps);
 
-        client.execute(request, new ApiRestHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) throws Exception {
-                String responseString = ObjectUtils.utf8String(responseBody);
-                Recipe recipe = Json.fromJson(responseString,Recipe.class);
-                etTitle.setText("TITLE: "+recipe.Title);
-                etDescription.setText("DESCRIPTION: "+recipe.Text);
-                etPortion.setText("PORTION: "+String.valueOf(recipe.Portion));
-                etPrepareTime.setText("PREPARE TIME: "+String.valueOf(recipe.PrepareTime));
-                JArray steps = JArray.parse(recipe.Steps);
-                StringBuilder builder_steps = new StringBuilder();
-                for (int i = 0; i < steps.size(); i++) {
-                    builder_steps.append((i+1)+". ");
-                    builder_steps.append(steps.getString(i));
-                    builder_steps.append("\n");
-                }
+        etTitle.setText("TITLE: " +recipe.Title);
+        etDescription.setText("DESCRIPTION: " + recipe.Text);
+        etPortion.setText("PORTION: " + recipe.Portion);
+        etPrepareTime.setText("PREPARE TIME: "+ recipe.PrepareTime);
 
-                etSteps.setText("STEPS: "+builder_steps.toString());
+        ArrayList<String> tags = new ArrayList<>();
+        if (recipe.getRecipeTags() != null) {
+            for (RecipeTag tag : recipe.getRecipeTags())
+                tags.add(tag.getTag().getText());
+        }
 
-                JArray ingredients = JArray.parse(recipe.Ingredients);
-
-                StringBuilder builder_ingredients= new StringBuilder();
-                for (int i = 0; i < ingredients.size(); i++) {
-
-                    builder_ingredients.append(ingredients.getString(i));
-                    builder_ingredients.append("\n");
-                }
-                etIngredients.setText("INGREDIENTS: "+builder_ingredients.toString());
-
-                StringBuilder builder_tag = new StringBuilder();
-
-                for (RecipeTag tag: recipe.RecipeTags) {
-                    builder_tag.append(tag.getTag().getText());
-                    builder_tag.append("\n");
-                }
-                etTags.setText("TAGS: "+builder_tag.toString());
+        ArrayList<String> steps = new ArrayList<>();
+        JArray stepsArray = JArray.parse(recipe.getSteps());
+        if (stepsArray != null) {
+            for (int i = 0; i < stepsArray.size(); i++) {
+                steps.add(stepsArray.getString(i));
             }
+        }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                super.onFailure(statusCode, headers, responseBody, error);
+        ArrayList<String> ingredients = new ArrayList<>();
+        JArray ingredientsArray = JArray.parse(recipe.getIngredients());
+        if (ingredientsArray != null) {
+            for (int i = 0; i < ingredientsArray.size(); i++) {
+                ingredients.add(ingredientsArray.getString(i));
             }
-        });
+        }
+
+        etSteps.setText(ObjectUtils.join("\n", steps));
+        etTags.setText(ObjectUtils.join("\n", tags));
+        etIngredients.setText(ObjectUtils.join("\n", ingredients));
+
         return content;
-
-
     }
 }
