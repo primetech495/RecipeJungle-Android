@@ -40,7 +40,8 @@ public class DetailsFragment extends RedefFragment {
     @Override
     public View onCreate(@NonNull Context context, @NonNull LayoutInflater inflater) {
         View content = inflater.inflate(R.layout.details_fragment, null);
-        request = new GetRequest("api/recipe/recipe?id="+recipeId); //todo recipe id
+        request = new GetRequest("/api/recipe/recipe?id="+recipeId);
+        request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication:",null));
         this.client = new ApiClient(Global.HOST);
 
         etTitle = content.findViewById(R.id.recipeTitle);
@@ -56,19 +57,31 @@ public class DetailsFragment extends RedefFragment {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) throws Exception {
                 String responseString = ObjectUtils.utf8String(responseBody);
                 Recipe recipe = Json.fromJson(responseString,Recipe.class);
-                etTitle.setText(recipe.Title);
-                etDescription.setText(recipe.Text);
-                etPortion.setText(recipe.Portion);
-                etPrepareTime.setText(recipe.PrepareTime);
-                etIngredients.setText(recipe.Ingredients);
-                etSteps.setText(recipe.Steps);
-
-                StringBuilder builder = new StringBuilder();
-                for (RecipeTag tag: recipe.RecipeTags) {
-                    builder.append(tag.getTag().getText());
-                    builder.append("\n");
+                etTitle.setText("TITLE: "+recipe.Title);
+                etDescription.setText("DESCRIPTION: "+recipe.Text);
+                etPortion.setText("PORTION: "+String.valueOf(recipe.Portion));
+                etPrepareTime.setText("PREPARE TIME: "+String.valueOf(recipe.PrepareTime));
+                StringBuilder builder_steps = new StringBuilder();
+                for (String step: recipe.Steps.split(",")) {
+                    builder_steps.append(step);
+                    builder_steps.append("\n");
                 }
-                etTags.setText(builder.toString());
+                etSteps.setText(builder_steps.toString());
+
+                StringBuilder builder_ingredients= new StringBuilder();
+                for (String ingredient: recipe.Ingredients.split(",")) {
+                    builder_steps.append(ingredient);
+                    builder_steps.append("\n");
+                }
+                etIngredients.setText(builder_ingredients.toString());
+
+                StringBuilder builder_tag = new StringBuilder();
+
+                for (RecipeTag tag: recipe.RecipeTags) {
+                    builder_tag.append(tag.getTag().getText());
+                    builder_tag.append("\n");
+                }
+                etTags.setText(builder_tag.toString());
             }
 
             @Override
