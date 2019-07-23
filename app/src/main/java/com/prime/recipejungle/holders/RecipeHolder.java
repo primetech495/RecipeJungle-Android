@@ -13,6 +13,7 @@ public class RecipeHolder extends RecyclerView.ViewHolder {
     private View root;
     private ImageView imageView;
     private TextView titleView;
+    private TextView tagsView;
     private Button detailsButton;
     private Button editButton;
     private Button deleteButton;
@@ -26,6 +27,7 @@ public class RecipeHolder extends RecyclerView.ViewHolder {
         this.detailsButton = root.findViewById(R.id.button1);
         this.editButton = root.findViewById(R.id.button2);
         this.deleteButton = root.findViewById(R.id.button3);
+        this.tagsView = root.findViewById(R.id.text2);
     }
 
     public View getRoot() {
@@ -50,6 +52,10 @@ public class RecipeHolder extends RecyclerView.ViewHolder {
 
     public Button getDeleteButton() {
         return deleteButton;
+    }
+
+    public TextView getTagsView() {
+        return tagsView;
     }
 }
 

@@ -16,6 +16,7 @@ import com.prime.recipejungle.activities.DetailsActivity;
 import com.prime.recipejungle.activities.MyRecipesActivity;
 import com.prime.recipejungle.activities.UpdateActivity;
 import com.prime.recipejungle.entities.Recipe;
+import com.prime.recipejungle.entities.RecipeTag;
 import com.prime.recipejungle.holders.RecipeHolder;
 import com.prime.recipejungle.utils.Global;
 import com.prime.recipejungle.utils.PaddedDividerItemDecoration;
@@ -170,6 +171,18 @@ public class MyRecipesFragment extends RedefFragment {
         public void onBindViewHolder(@NonNull RecipeHolder holder, int position) {
             final Recipe recipe = dataSet.get(position);
             holder.getTitleView().setText(recipe.getTitle());
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("Tags: ");
+            if (recipe.RecipeTags != null) {
+                for (RecipeTag tag : recipe.getRecipeTags()) {
+                    sb.append(tag.getTag().getText());
+                    sb.append(", ");
+                }
+            }
+            String tags = sb.toString();
+            tags = tags.substring(0, tags.length() - 2);
+            holder.getTagsView().setText(tags);
 
             final Context context = getAndroidActivity();
             if (context == null) return;
