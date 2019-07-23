@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/abc">
+
+    <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:background="#48000000"
         android:layout_centerVertical="true"
@@ -70,6 +75,7 @@
             android:layout_height="wrap_content" />
 
         <com.prime.redef.flatui.FlatTextView
+            android:id="@+id/view1"
             android:layout_width="match_parent"
             android:layout_margin="8dp"
             android:textAlignment="center"
@@ -79,3 +85,5 @@
 
     </LinearLayout>
 </RelativeLayout>
+</ScrollView>
+

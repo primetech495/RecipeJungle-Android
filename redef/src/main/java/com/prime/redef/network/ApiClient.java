@@ -32,7 +32,7 @@ public class ApiClient {
         //RequestMethod method = request.getMethod();
 
         if (request instanceof GetRequest) {
-            client.get(host + url, handlerInterface);
+            client.get(null, host + url, request.getHeaderImpls(), null, handlerInterface);
             return;
         }
 

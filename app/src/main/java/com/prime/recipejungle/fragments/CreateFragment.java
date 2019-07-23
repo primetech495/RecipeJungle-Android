@@ -10,7 +10,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.prime.recipejungle.R;
+import com.prime.recipejungle.activities.MyRecipesActivity;
 import com.prime.recipejungle.utils.Global;
+import com.prime.redef.app.App;
 import com.prime.redef.app.RedefActivity;
 import com.prime.redef.app.RedefFragment;
 import com.prime.redef.app.configs.ActivityConfig;
@@ -54,7 +56,6 @@ public class CreateFragment extends RedefFragment {
         etSteps = content.findViewById(R.id.recipeSteps);
         this.button = content.findViewById(R.id.button1);
 
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +69,7 @@ public class CreateFragment extends RedefFragment {
     private void buttonClicked(){
         PostRequest request = new PostRequest("/api/recipe/create");
         final String title = etTitle.getText().toString();
-        final String description = etTitle.getText().toString();
+        final String description = etDescription.getText().toString();
         final int portion = Integer.parseInt(etPortion.getText().toString());
         final int prepareTime = Integer.parseInt(etPrepareTime.getText().toString());
         final String ingredients = etIngredients.getText().toString();
@@ -81,10 +82,10 @@ public class CreateFragment extends RedefFragment {
             body.put("Text", description);
             body.put("Portion", portion);
             body.put("PrepareTime", prepareTime);
-            body.put("Ingredients", ingredients);
-            body.put("Tags", tags);
-            body.put("Steps", steps);
-            request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication",null));
+            body.put("Ingredients", ingredients.split("\n"));
+            body.put("Tags", tags.split("\n"));
+            body.put("Steps", steps.split("\n"));
+            request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication:",null));
             ((PostRequest) request).setJsonBody(Json.toJson(body));
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,13 +97,14 @@ public class CreateFragment extends RedefFragment {
                 String responseString = ObjectUtils.utf8String(responseBody);
                 String message = Json.fromJson(responseString, String.class);
                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                App.startActivity(getContext(), MyRecipesActivity.class, null);
+                getAndroidActivity().finish();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 String responseString = ObjectUtils.utf8String(responseBody);
-                String message = Json.fromJson(responseString, String.class);
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), responseString, Toast.LENGTH_SHORT).show();
             }
         });
     }
