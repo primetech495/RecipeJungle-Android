@@ -35,6 +35,8 @@ import com.prime.redef.network.ApiRestHandler;
 import com.prime.redef.network.GetRequest;
 import com.prime.redef.network.Header;
 import com.prime.redef.utils.ObjectUtils;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -114,7 +116,7 @@ public class HomeFragment extends RedefFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecipeHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final RecipeHolder holder, int position) {
             final Recipe recipe = dataSet.get(position);
             holder.getTitleView().setText(recipe.getTitle());
 
@@ -129,6 +131,17 @@ public class HomeFragment extends RedefFragment {
             String tags = sb.toString();
             tags = tags.substring(0, tags.length() - 2);
             holder.getTagsView().setText(tags);
+
+            Picasso.get().load(Global.HOST + "/api/photo/get?recipeId=" + recipe.Id)
+                    .into(holder.getImageView(), new Callback() {
+                        @Override public void onSuccess() { }
+
+                        @Override
+                        public void onError(Exception e) {
+                            Picasso.get().load(Global.HOST + "/photo_not_available.gif")
+                                    .into(holder.getImageView());
+                        }
+                    });
 
             final Context context = getAndroidActivity();
             if (context == null) return;
