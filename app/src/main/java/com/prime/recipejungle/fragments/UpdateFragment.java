@@ -70,7 +70,7 @@ public class UpdateFragment extends RedefFragment {
 
         StringBuilder builder_ingredients= new StringBuilder();
         for (String ingredient: recipe.Ingredients.split(",")) {
-            builder_steps.append(step.getText());
+            builder_steps.append(ingredient);
             builder_steps.append("\n");
         }
         etIngredients.setText(builder_ingredients.toString());
