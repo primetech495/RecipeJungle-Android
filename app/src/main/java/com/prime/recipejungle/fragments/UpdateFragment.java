@@ -75,6 +75,15 @@ public class UpdateFragment extends RedefFragment {
         }
         etIngredients.setText(builder_ingredients.toString());
 
+        StringBuilder builder_tag = new StringBuilder();
+
+        for (RecipeTag tag: recipe.RecipeTags) {
+            builder_tag.append(tag.getTag().getText());
+            builder_tag.append("\n");
+        }
+        etTags.setText(builder_tag.toString());
+
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
