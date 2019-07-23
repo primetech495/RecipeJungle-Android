@@ -11,4 +11,46 @@
         android:text=""
         android:layout_height="wrap_content" />
 
+    <com.prime.redef.flatui.FlatTextView
+        android:id="@+id/recipeDescription"
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:text=""
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatTextView
+        android:id="@+id/recipePortion"
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:text=""
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatTextView
+        android:id="@+id/recipePrepareTime"
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:text=""
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatTextView
+        android:id="@+id/recipeIngredients"
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:text=""
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatTextView
+        android:id="@+id/recipeSteps"
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:text=""
+        android:layout_height="wrap_content" />
+
+    <com.prime.redef.flatui.FlatTextView
+        android:id="@+id/recipeTags"
+        android:layout_width="match_parent"
+        android:layout_margin="8dp"
+        android:text=""
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
