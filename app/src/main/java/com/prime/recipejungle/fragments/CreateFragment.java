@@ -68,7 +68,7 @@ public class CreateFragment extends RedefFragment {
     private void buttonClicked(){
         PostRequest request = new PostRequest("/api/recipe/create");
         final String title = etTitle.getText().toString();
-        final String description = etTitle.getText().toString();
+        final String description = etDescription.getText().toString();
         final int portion = Integer.parseInt(etPortion.getText().toString());
         final int prepareTime = Integer.parseInt(etPrepareTime.getText().toString());
         final String ingredients = etIngredients.getText().toString();
@@ -81,9 +81,9 @@ public class CreateFragment extends RedefFragment {
             body.put("Text", description);
             body.put("Portion", portion);
             body.put("PrepareTime", prepareTime);
-            body.put("Ingredients", ingredients);
-            body.put("Tags", tags);
-            body.put("Steps", steps);
+            body.put("Ingredients", ingredients.split("\n"));
+            body.put("Tags", tags.split("\n"));
+            body.put("Steps", steps.split("\n"));
             request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication:",null));
             ((PostRequest) request).setJsonBody(Json.toJson(body));
         } catch (Exception e) {
