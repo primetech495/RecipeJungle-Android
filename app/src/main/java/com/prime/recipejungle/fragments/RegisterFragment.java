@@ -92,7 +92,7 @@ public class RegisterFragment extends RedefFragment {
                 String responseString = ObjectUtils.utf8String(responseBody);
                 String message = Json.fromJson(responseString, String.class);
                 App.startActivity(getAndroidActivity(), LoginActivity.class,null);
-
+                getAndroidActivity().finish();
             }
 
             @Override

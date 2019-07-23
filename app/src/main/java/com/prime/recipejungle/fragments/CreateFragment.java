@@ -10,7 +10,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.prime.recipejungle.R;
+import com.prime.recipejungle.activities.MyRecipesActivity;
 import com.prime.recipejungle.utils.Global;
+import com.prime.redef.app.App;
 import com.prime.redef.app.RedefActivity;
 import com.prime.redef.app.RedefFragment;
 import com.prime.redef.app.configs.ActivityConfig;
@@ -96,6 +98,8 @@ public class CreateFragment extends RedefFragment {
                 String responseString = ObjectUtils.utf8String(responseBody);
                 String message = Json.fromJson(responseString, String.class);
                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                App.startActivity(getContext(), MyRecipesActivity.class, null);
+                getAndroidActivity().finish();
             }
 
             @Override

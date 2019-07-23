@@ -97,7 +97,7 @@ public class LoginFragment extends RedefFragment {
                 String message = Json.fromJson(responseString, String.class);
                 Global.PROPERTIES.putString("Authentication:", message);
                 App.startActivity(getAndroidActivity(), CreateActivity.class,null);
-
+                getAndroidActivity().finish();
             }
 
             @Override
