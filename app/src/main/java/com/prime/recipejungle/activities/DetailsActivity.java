@@ -26,6 +26,7 @@ public class DetailsActivity extends RedefActivity{
     public void onCreate() {
         fragmentController.startTransaction()
                 .useFragment(DetailsFragment.class)
+                    .withParameter(recipeID)
                 .commit();
     }
 
