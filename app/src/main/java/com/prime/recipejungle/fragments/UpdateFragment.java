@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.prime.recipejungle.R;
+import com.prime.recipejungle.entities.Recipe;
+import com.prime.recipejungle.entities.RecipeTag;
 import com.prime.recipejungle.utils.Global;
 import com.prime.redef.app.InjectParameter;
 import com.prime.redef.app.RedefFragment;
@@ -37,12 +39,12 @@ public class UpdateFragment extends RedefFragment {
     private EditText etSteps;
 
     @InjectParameter
-    //private int recipeID;
+    private Recipe recipe;
 
     @Override
     public View onCreate(@NonNull Context context, @NonNull LayoutInflater inflater) {
         View content = inflater.inflate(R.layout.update_fragment, null);
-        GetRequest request = new GetRequest("/api/recipe/recipe?id=1"); //todo +recipeID
+        GetRequest request = new GetRequest("/api/recipe/recipe?id=" + recipe.Id);
         this.apiClient = new ApiClient(Global.HOST);
         etTitle = content.findViewById(R.id.recipeTitle);
         etDescription = content.findViewById(R.id.recipeDescription);
@@ -53,44 +55,26 @@ public class UpdateFragment extends RedefFragment {
         etSteps = content.findViewById(R.id.recipeSteps);
         this.button = content.findViewById(R.id.button1);
 
-        apiClient.execute(request, new ApiRestHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) throws Exception {
-                String responseString = ObjectUtils.utf8String(responseBody);
-                JObject object = JObject.parse(responseString);
-                String  title = object.getString("Title");
-                Log.e("tny", title);
-                String  description = object.getString("Text");
-                int  portion = object.getInt("Portion");
-                int  prep_time = object.getInt("PrepareTime");
-                String  ingredients = object.getString("Ingredients");
-                String  steps = object.getString("Steps");
-                Object  tags = object.getObject("Tags");
-                String tag =((JObject) tags).getString("Tag");
 
+        etTitle.setText(recipe.Title);
+        etDescription.setText(recipe.Text);
+        etPortion.setText(String.valueOf(recipe.Portion));
+        etPrepareTime.setText(String.valueOf(recipe.PrepareTime));
 
-                etTitle.setText(title);
-                etDescription.setText(description);
-                etPortion.setText(String.valueOf(portion));
-                etPrepareTime.setText(String.valueOf(prep_time));
-                etSteps.setText(steps);
-                etIngredients.setText(ingredients);
-                etTags.setText(tags.toString());
+        StringBuilder builder_steps = new StringBuilder();
+        for (String step: recipe.Steps.split(",")) {
+            builder_steps.append(step);
+            builder_steps.append("\n");
+        }
+        etSteps.setText(builder_steps.toString());
 
-                String message = Json.fromJson(responseString, String.class);
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        StringBuilder builder_ingredients= new StringBuilder();
+        for (String ingredient: recipe.Ingredients.split(",")) {
+            builder_steps.append(step.getText());
+            builder_steps.append("\n");
+        }
+        etIngredients.setText(builder_ingredients.toString());
 
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.e("tny", "failure2");
-                String responseString = ObjectUtils.utf8String(responseBody);
-                String message = Json.fromJson(responseString, String.class);
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-            }
-        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +106,7 @@ public class UpdateFragment extends RedefFragment {
             body.put("Ingredients", new_ingredients);
             body.put("Tags", new_tags);
             body.put("Steps", new_steps);
-            request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication",null));
+            request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication:",null));
             ((PostRequest) request).setJsonBody(Json.toJson(body));
         } catch (Exception e) {
             e.printStackTrace();
