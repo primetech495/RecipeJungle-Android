@@ -35,13 +35,12 @@ public class DetailsFragment extends RedefFragment {
     private TextView etSteps;
 
     @InjectParameter
-    //private int recipeId;
-
+    private int recipeId;
 
     @Override
     public View onCreate(@NonNull Context context, @NonNull LayoutInflater inflater) {
         View content = inflater.inflate(R.layout.details_fragment, null);
-        request = new GetRequest("api/recipe/recipe?id=1"); //todo recipe id
+        request = new GetRequest("api/recipe/recipe?id="+recipeId); //todo recipe id
         this.client = new ApiClient(Global.HOST);
 
         etTitle = content.findViewById(R.id.recipeTitle);
