@@ -98,39 +98,6 @@ public class HomeFragment extends RedefFragment {
         return root;
     }
 
-    @Override
-    public void onMenuCreated() {
-        searchViewController.setListener(new ISearchViewListener() {
-            @Override
-            public void onSearchViewClosed() {
-                //adapter.updateSearchText("");
-            }
-
-            @Override
-            public void onSearchViewOpened() {
-
-            }
-
-            @Override
-            public boolean onSearchViewSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onSearchViewChange(String newText) {
-                //adapter.updateSearchText(newText);
-                return false;
-            }
-
-            @Override
-            public void onSearchViewItemClicked(String item) {
-
-            }
-        });
-    }
-
-
-
     private class MyAdapter extends RecyclerView.Adapter<RecipeHolder> {
         private ArrayList<Recipe> dataSet;
 
@@ -169,13 +136,9 @@ public class HomeFragment extends RedefFragment {
             holder.getDetailsButton().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    App.startActivity(context, DetailsActivity.class, recipe.Id);
+                    App.startActivity(context, DetailsActivity.class, recipe);
                 }
             });
-
-
-
-
         }
 
         @Override

@@ -1,5 +1,6 @@
 package com.prime.recipejungle.activities;
 
+import com.prime.recipejungle.entities.Recipe;
 import com.prime.recipejungle.fragments.DetailsFragment;
 import com.prime.redef.app.InjectParameter;
 import com.prime.redef.app.RedefActivity;
@@ -7,7 +8,7 @@ import com.prime.redef.app.configs.ActivityConfig;
 
 public class DetailsActivity extends RedefActivity{
     @InjectParameter
-    private int recipeID;
+    private Recipe recipe;
 
     @Override
     public boolean onBind() {
@@ -26,7 +27,7 @@ public class DetailsActivity extends RedefActivity{
     public void onCreate() {
         fragmentController.startTransaction()
                 .useFragment(DetailsFragment.class)
-                    .withParameter(recipeID)
+                    .withParameter(recipe)
                 .commit();
     }
 

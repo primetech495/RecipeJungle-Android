@@ -26,6 +26,8 @@ public class RecipeHolder extends RecyclerView.ViewHolder {
         this.titleView = root.findViewById(R.id.text);
         this.detailsButton = root.findViewById(R.id.button1);
         this.tagsView = root.findViewById(R.id.text2);
+        this.editButton = root.findViewById(R.id.button2);
+        this.deleteButton = root.findViewById(R.id.button3);
     }
 
     public View getRoot() {
