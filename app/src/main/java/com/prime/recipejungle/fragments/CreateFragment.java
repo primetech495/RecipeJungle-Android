@@ -56,7 +56,6 @@ public class CreateFragment extends RedefFragment {
         etSteps = content.findViewById(R.id.recipeSteps);
         this.button = content.findViewById(R.id.button1);
 
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

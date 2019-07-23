@@ -10,8 +10,8 @@ public class Recipe {
     public String Steps;
     public String Ingredients ;
     public String Photos ;
-    public DateTime CreatedTime ;
-    public DateTime ModifiedTime ;
+    public String CreatedTime ;
+    public String ModifiedTime ;
     public int PrepareTime ;
     public int Portion;
     public User User;
@@ -80,19 +80,19 @@ public class Recipe {
         Photos = photos;
     }
 
-    public DateTime getCreatedTime() {
+    public String getCreatedTime() {
         return CreatedTime;
     }
 
-    public void setCreatedTime(DateTime createdTime) {
+    public void setCreatedTime(String createdTime) {
         CreatedTime = createdTime;
     }
 
-    public DateTime getModifiedTime() {
+    public String getModifiedTime() {
         return ModifiedTime;
     }
 
-    public void setModifiedTime(DateTime modifiedTime) {
+    public void setModifiedTime(String modifiedTime) {
         ModifiedTime = modifiedTime;
     }
 

@@ -4,29 +4,43 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
 import com.prime.recipejungle.R;
+import com.prime.recipejungle.activities.CreateActivity;
+import com.prime.recipejungle.activities.DetailsActivity;
+import com.prime.recipejungle.activities.MyRecipesActivity;
+import com.prime.recipejungle.activities.UpdateActivity;
 import com.prime.recipejungle.entities.Recipe;
 import com.prime.recipejungle.holders.RecipeHolder;
+import com.prime.recipejungle.utils.Global;
+import com.prime.recipejungle.utils.PaddedDividerItemDecoration;
+import com.prime.redef.app.App;
 import com.prime.redef.app.RedefFragment;
 import com.prime.redef.app.configs.FragmentConfig;
 import com.prime.redef.app.configs.OptionsMenuConfig;
 import com.prime.redef.app.configs.OptionsMenuItemConfig;
 import com.prime.redef.app.listeners.ISearchViewListener;
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
+import com.prime.redef.json.JArray;
+import com.prime.redef.json.JObject;
+import com.prime.redef.json.Json;
+import com.prime.redef.network.ApiClient;
+import com.prime.redef.network.ApiRequest;
+import com.prime.redef.network.ApiRestHandler;
+import com.prime.redef.network.GetRequest;
+import com.prime.redef.network.Header;
+import com.prime.redef.utils.ObjectUtils;
 
 import java.util.ArrayList;
 
 public class MyRecipesFragment extends RedefFragment {
 
     private MyAdapter adapter;
+    private ApiClient apiClient;
 
     @Override
     public void onConfig(FragmentConfig config) {
@@ -34,7 +48,10 @@ public class MyRecipesFragment extends RedefFragment {
                 new OptionsMenuItemConfig(1)
                         .setShowAsAction(true)
                         .setTitle("Search...")
-                        .setSearch(true)
+                        .setSearch(true),
+                new OptionsMenuItemConfig(2)
+                    .setShowAsAction(false)
+                    .setTitle("Create New")
         ));
     }
 
@@ -46,10 +63,35 @@ public class MyRecipesFragment extends RedefFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
 
-        //PaddedDividerItemDecoration decoration = new PaddedDividerItemDecoration(context, layoutManager.getOrientation());
-        //decoration.setLeftMarginDp(76);
-        //decoration.setRightMarginDp(16);
-        //recyclerView.addItemDecoration(decoration);
+        PaddedDividerItemDecoration decoration = new PaddedDividerItemDecoration(context, layoutManager.getOrientation());
+        decoration.setLeftMarginDp(4);
+        decoration.setRightMarginDp(4);
+        recyclerView.addItemDecoration(decoration);
+
+        apiClient = new ApiClient(Global.HOST);
+
+        GetRequest request = new GetRequest("/api/recipe/list-my");
+        request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication:",null));
+        apiClient.execute(request, new ApiRestHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String responseString = ObjectUtils.utf8String(responseBody);
+                JArray array = JArray.parse(responseString);
+                ArrayList<Recipe> recipes = new ArrayList<>();
+                for (int i = 0; i < array.size(); i++){
+                    JObject obj = array.getObject(i);
+                    Recipe recipe = Json.fromJson(obj.toString(), Recipe.class);
+                    recipes.add(recipe);
+                }
+                adapter.updateDataset(recipes);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                String responseString = ObjectUtils.utf8String(responseBody);
+                Toast.makeText(getContext(), responseString, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         adapter = new MyAdapter(new ArrayList<Recipe>());
         recyclerView.setAdapter(adapter);
@@ -87,6 +129,28 @@ public class MyRecipesFragment extends RedefFragment {
         });
     }
 
+    private void deleteClicked(int id) {
+        GetRequest request = new GetRequest("/api/recipe/delete?id=" + id);
+        request.putHeader("Authorization", Global.PROPERTIES.getString("Authentication:",null));
+        apiClient.execute(request, new ApiRestHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String responseString = ObjectUtils.utf8String(responseBody);
+                Toast.makeText(getContext(), responseString, Toast.LENGTH_SHORT).show();
+                if (getAndroidActivity() != null) {
+                    getAndroidActivity().finish();
+                    App.startActivity(getAndroidActivity(), MyRecipesActivity.class, null);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                String responseString = ObjectUtils.utf8String(responseBody);
+                Toast.makeText(getContext(), responseString, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private class MyAdapter extends RecyclerView.Adapter<RecipeHolder> {
         private ArrayList<Recipe> dataSet;
 
@@ -99,39 +163,56 @@ public class MyRecipesFragment extends RedefFragment {
         public RecipeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View root = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_recipe, parent, false);
-
             return new RecipeHolder(root);
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecipeHolder holder, int position) {
-            /*holder.getText1().setText(dataSet.get(position).getCode());
-            holder.getText2().setText(dataSet.get(position).getName());
-            holder.getRoot().setOnClickListener(new SingleClickListener() {
+            final Recipe recipe = dataSet.get(position);
+            holder.getTitleView().setText(recipe.getTitle());
+
+            final Context context = getAndroidActivity();
+            if (context == null) return;
+
+            holder.getDetailsButton().setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onSingleClick(View v) {
-                    onClassClicked(dataSet.get(holder.getAdapterPosition()));
+                public void onClick(View v) {
+                    App.startActivity(context, DetailsActivity.class, recipe.Id);
                 }
             });
 
-            int color = ColorScheme.SCHEME2.getColor(holder.getText1().getText().subSequence(0, 3));
+            holder.getEditButton().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    App.startActivity(context, UpdateActivity.class, recipe.Id);
+                }
+            });
 
-            TextDrawable drawable = TextDrawable.builder()
-                    .beginConfig()
-                    .withBorder(4)
-                    .bold()
-                    .endConfig()
-                    .buildRound(holder.getText1().getText().charAt(0) + "", color);
-
-            holder.getImageView().setImageDrawable(drawable);
-
-            FontManager.SetGoogleMedium(holder.getText1());
-            FontManager.SetGoogleRegular(holder.getText2());*/
+            holder.getDeleteButton().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deleteClicked(recipe.Id);
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
             return dataSet.size();
         }
+
+        public void updateDataset(ArrayList<Recipe> recipes) {
+            this.dataSet = recipes;
+            notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public boolean onMenuItemClicked(int id) {
+        if (id == 2) {
+            App.startActivity(getAndroidActivity(), CreateActivity.class, null);
+            return true;
+        }
+        return false;
     }
 }
