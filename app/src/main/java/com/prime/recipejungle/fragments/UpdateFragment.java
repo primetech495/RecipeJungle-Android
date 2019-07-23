@@ -69,6 +69,7 @@ public class UpdateFragment extends RedefFragment {
             builder_steps.append(steps.getString(i));
             builder_steps.append("\n");
         }
+        
         etSteps.setText(builder_steps.toString());
 
         JArray ingredients = JArray.parse(recipe.Ingredients);
