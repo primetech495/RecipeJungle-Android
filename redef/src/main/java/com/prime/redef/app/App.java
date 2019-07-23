@@ -55,6 +55,15 @@ public final class App {
     }
 
     public static void startActivity(@NonNull Context activityContext, Class<? extends RedefActivity> type, @Nullable Object args) {
+        // HACK
+        for (WeakReference<AndroidActivity> y : getActiveActivities().values()) {
+            if (y == null)return;
+            if (y.get() == null) return;
+            if (y.get().getRedefActivity().getClass() == type) {
+                y.get().finish();
+            }
+        }
+
         DebugUtils.assertUiThread();
         if (args != null && !isPod(args.getClass())) {
             throw new IllegalArgumentException("parameter should be plain data");
