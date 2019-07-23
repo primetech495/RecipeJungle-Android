@@ -103,8 +103,7 @@ public class LoginFragment extends RedefFragment {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 String responseString = ObjectUtils.utf8String(responseBody);
-                String message = Json.fromJson(responseString, String.class);
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), responseString, Toast.LENGTH_SHORT).show();
             }
         });
     }
