@@ -119,9 +119,9 @@ public class DetailsFragment extends RedefFragment {
         if (id == 1) {
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");
-            i.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL");
-            i.putExtra(Intent.EXTRA_TEXT, "http://www.url.com");
-            getAndroidActivity().startActivity(Intent.createChooser(i, "Share URL"));
+            i.putExtra(Intent.EXTRA_SUBJECT, "Sharing Recipe");
+            i.putExtra(Intent.EXTRA_TEXT, Global.HOST + "/recipeDetails?id=" + id);
+            getAndroidActivity().startActivity(Intent.createChooser(i, "Share Recipe"));
             return true;
         }
         return false;
